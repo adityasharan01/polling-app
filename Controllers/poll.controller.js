@@ -1,4 +1,4 @@
-import Poll from "../Models/poll.model.js"
+import Poll from "../models/poll.model.js"
 
 export const getAllPolls = async (req, res) => {
     try {
