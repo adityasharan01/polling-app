@@ -2,7 +2,6 @@ import Poll from "../Models/poll.model.js"
 
 export const getAllPolls = async (req, res) => {
     try {
-        // Get polls
         const polls = await Poll.find()
                 .sort({ createdAt: -1 })
 
@@ -49,21 +48,20 @@ export const votePollById = async (req, res) => {
             return res.status(400).json({ message: 'Invalid option index' });
         }
 
-        // Update using MongoDB's atomic operators
         const updatedPoll = await Poll.findOneAndUpdate(
-            { _id: req.params.id },
+           
+            { _id: pollId },
             {
                 $inc: {
                     [`options.${optionIndex}.votes`]: 1,
                     totalVotes: 1
                 }
             },
-            { new: true } // Return updated document
+            { new: true }
         );
-
+        console.log(JSON.stringify(updatedPoll,null,2))
         res.json(updatedPoll);
     } catch (error) {
-        // Check if error is due to invalid ObjectId
         if (error.kind === 'ObjectId') {
             return res.status(400).json({ message: 'Invalid poll ID format' });
         }
@@ -77,7 +75,6 @@ export const createPoll = async (req, res) => {
     try {
         const { question, options } = req.body;
 
-        // Validation
         if (!question || !question.trim()) {
             return res.status(400).json({ message: 'Question is required' });
         }
@@ -88,7 +85,6 @@ export const createPoll = async (req, res) => {
             });
         }
 
-        // Validate each option
         const validOptions = options.every(option =>
             option && typeof option === 'string' && option.trim()
         );
@@ -99,7 +95,6 @@ export const createPoll = async (req, res) => {
             });
         }
 
-        // Create poll with formatted options
         const poll = new Poll({
             question: question.trim(),
             options: options.map(option => ({
