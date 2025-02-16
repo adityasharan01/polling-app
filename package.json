@@ -1,12 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "build": "npm install && node app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "build": "npm install && node src/app.js"
   },
   "keywords": [],
   "author": "",
