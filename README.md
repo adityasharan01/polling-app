@@ -49,7 +49,7 @@ backend/
 |
  POST 
 |
-`/api/polls`
+`/api/polls/new`
 |
  Create a new poll 
 |

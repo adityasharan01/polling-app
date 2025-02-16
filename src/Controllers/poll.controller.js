@@ -3,7 +3,7 @@ import Poll from "../Models/poll.model.js"
 export const getAllPolls = async (req, res) => {
     try {
         // Get polls
-        const polls = await pollModel.find()
+        const polls = await Poll.find()
                 .sort({ createdAt: -1 })
 
         res.send({ polls });
